@@ -10,9 +10,6 @@ Parameters:
     Type: String
   EnvironmentName:
     Type: String
-  CertificateArn:
-    Type: String
-    Description: ARN of the Amazon Certificate Manager SSL certificate to use for this app
 
 Resources:
   # Create the ECR respository to hold built docker images
@@ -227,11 +224,6 @@ Resources:
                 StackName: !Sub ${EnvironmentName}-BaseResources
                 TemplatePath: Source::cluster.yml
                 Capabilities: CAPABILITY_IAM
-                ParameterOverrides: !Sub |
-                  {
-                    "EnvironmentName": "${EnvironmentName}",
-                    "CertificateArn": "${CertificateArn}"
-                  }
               InputArtifacts:
                 - Name: Source
               OutputArtifacts:
